@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Inclined Plane Simulator</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+</head>
+<body>
+  <main>
+    <h1>Inclined Plane Simulator</h1>
+    
+    <div class="controls">
+      <!-- Row 1: Mass -->
+      <div class="control-row">
+        <label>Mass (kg): <span id="massValue">5</span></label>
+        <input type="range" id="massSlider" min="1" max="20" value="5" step="1" />
+      </div>
+
+      <!-- Row 2: Angle -->
+      <div class="control-row">
+        <label>Incline Angle (°): <span id="angleValue">30</span></label>
+        <input type="range" id="angleSlider" min="0" max="60" value="30" step="1" />
+      </div>
+
+      <!-- Row 3: Friction -->
+      <div class="control-row">
+        <label>Friction Coefficient (μ): <span id="muValue">0.2</span></label>
+        <input type="range" id="muSlider" min="0" max="1" value="0.2" step="0.01" />
+      </div>
+
+      <!-- Explanation Toggle -->
+<div class="toggle-row">
+  <button id="explanationToggle">ℹ️ Explanation</button>
+</div>
+
+<!-- Explanation Panel -->
+<div id="explanationPanel" class="explanation hidden">
+  <h2>Inclined Planes</h2>
+  <p><strong>Inclined planes</strong> are sloped surfaces used to raise or lower objects with less effort than lifting directly. The block on the incline experiences gravitational force, which is resolved into two components: one parallel to the incline (causing it to slide) and one perpendicular (contributing to the normal force).</p>
+
+  <p>The <strong>gravitational force</strong> acting on the block is:
+  <br><code>F<sub>gravity</sub> = m × g</code></p>
+
+  <p>This splits into:
+  <ul>
+    <li><strong>Parallel component</strong>: <code>F<sub>parallel</sub> = m × g × sin(θ)</code></li>
+    <li><strong>Perpendicular component</strong>: <code>F<sub>perpendicular</sub> = m × g × cos(θ)</code></li>
+  </ul></p>
+
+  <p>The <strong>normal force</strong> is equal in magnitude to the perpendicular component when there's no vertical acceleration.</p>
+
+  <p>If <strong>friction</strong> is enabled, it resists motion:
+  <br><code>F<sub>friction</sub> = μ × F<sub>normal</sub> = μ × m × g × cos(θ)</code></p>
+
+  <p>The <strong>net force</strong> is:
+  <br><code>F<sub>net</sub> = F<sub>parallel</sub> - F<sub>friction</sub></code></p>
+
+  <p>Using Newton’s Second Law:
+  <br><code>a = F<sub>net</sub> / m</code></p>
+
+  <p>This simulator uses those equations to calculate the block's acceleration and velocity in real-time based on mass, angle, and friction.</p>
+
+  <p><strong>Try This:</strong> Set angle to 0° to see no motion. Increase the angle gradually to see how it affects acceleration. Toggle friction off to simulate an ideal smooth incline.</p>
+</div>
+
+
+      <!-- Toggles -->
+      <div class="toggle-row">
+        <label><input type="checkbox" id="frictionToggle" checked /> Enable Friction</label><br>
+      </div>
+      <div class="toggle-row">
+        <label><input type="checkbox" id="slowToggle" /> Slow Motion</label><br>
+      </div>
+
+      <!-- Reset Button -->
+      <button onclick="resetBlock()">Reset Simulation</button>
+    </div>
+
+    <div class="stats">
+      <p>Acceleration: <span id="accText">0</span></p>
+      <p>Velocity: <span id="velText">0</span></p>
+    </div>
+  </main>
+
+  <script src="sketch.js"></script>
+</body>
+</html>
